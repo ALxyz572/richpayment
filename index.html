@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nope - Alpin Developer</title>
+    <style>
+        /* Import Font Google */
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+        /* Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        /* Background Animasi */
+        body {
+            background: linear-gradient(45deg, #1f1c2c, #928dab);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* Container */
+        .container {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0px 4px 20px rgba(255, 255, 255, 0.3);
+            width: 380px;
+            text-align: center;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        h2 {
+            color: white;
+            margin-bottom: 20px;
+        }
+
+        .payment-box {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 15px;
+            border-radius: 8px;
+            margin: 10px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: 0.3s;
+        }
+
+        .payment-box:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+        }
+
+        .payment-box img {
+            width: 50px;
+            border-radius: 5px;
+        }
+
+        .payment-info {
+            color: white;
+            flex-grow: 1;
+            text-align: left;
+            margin-left: 10px;
+        }
+
+        .copy-button, .qris-button {
+            background: #ffdd57;
+            color: black;
+            font-weight: bold;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .copy-button:hover, .qris-button:hover {
+            background: #ffcc00;
+            box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.8);
+        }
+
+        /* Efek Gelembung */
+        .copy-button::after {
+            content: "";
+            position: absolute;
+            width: 150%;
+            height: 150%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.3) 10%, transparent 50%);
+            top: -50%;
+            left: -50%;
+            transform: scale(0);
+            transition: transform 0.4s ease-out;
+            border-radius: 50%;
+        }
+
+        .copy-button:active::after {
+            transform: scale(1);
+        }
+
+        /* QRIS Button */
+        .qris-button {
+            background: #00e676;
+            color: white;
+            margin-top: 15px;
+            width: 100%;
+        }
+
+        .qris-button:hover {
+            background: #00c853;
+        }
+
+        /* Animasi */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Pilih Salah Satu</h2>
+
+    <div class="payment-box">
+        <img src="https://files.catbox.moe/i1hcmu.jpg" alt="DANA">
+        <div class="payment-info">
+            <strong>DANA</strong>
+            <p id="dana-number">085142794348</p>
+        </div>
+        <button class="copy-button" onclick="copyToClipboard('dana-number')">Salin</button>
+    </div>
+
+    <div class="payment-box">
+        <img src="https://files.catbox.moe/c5qs0b.jpg" alt="OVO">
+        <div class="payment-info">
+            <strong>OVO</strong>
+            <p id="ovo-number">085142794348</p>
+        </div>
+        <button class="copy-button" onclick="copyToClipboard('ovo-number')">Salin</button>
+    </div>
+
+    <div class="payment-box">
+        <img src="https://files.catbox.moe/qbb1lk.jpg" alt="GoPay">
+        <div class="payment-info">
+            <strong>GoPay</strong>
+            <p id="gopay-number">085142794348</p>
+        </div>
+        <button class="copy-button" onclick="copyToClipboard('gopay-number')">Salin</button>
+    </div>
+
+    <!-- Button QRIS -->
+    <button class="qris-button" onclick="openQRIS()">Lihat QRIS</button>
+</div>
+
+<!-- Efek Suara -->
+<audio id="bubbleSound" src="https://files.catbox.moe/od2x05.mp3" preload="auto"></audio>
+
+<script>
+    function copyToClipboard(id) {
+        let text = document.getElementById(id).innerText;
+        let input = document.createElement("input");
+        document.body.appendChild(input);
+        input.value = text;
+        input.select();
+        document.execCommand("copy");
+        document.body.removeChild(input);
+
+        // Mainkan suara gelembung
+        document.getElementById('bubbleSound').play();
+
+        alert("Nomor berhasil disalin: " + text);
+    }
+
+    function openQRIS() {
+        // Ganti dengan link gambar QRIS Anda
+        let qrisLink = "https://files.catbox.moe/nlks1z.jpg"; 
+        window.open(qrisLink, "_blank");
+    }
+</script>
+
+</body>
+</html>
